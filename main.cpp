@@ -7,7 +7,7 @@ using namespace std;
 
 enum MenuList
 {
-	WISP = 1, SWEET, DREAM, GOLDAPPLE, ROYALSTYLE, ROYALHAIR, ROYALFACE, EXIT
+	WISP = 1, SWEET, DREAM, GOLDAPPLE, ROYALSTYLE, ROYALHAIR, ROYALFACE, MASTERPIECERED, MASTERPIECEBLACK, EXIT
 };
 
 int getRandomNumber(int min, int max)
@@ -28,7 +28,9 @@ void ShowMenu() {
 	cout << " 5. 로얄스타일" << endl;
 	cout << " 6. 로얄 헤어 쿠폰" << endl;
 	cout << " 7. 로얄 성형 쿠폰" << endl;
-	cout << " 8. 종료" << endl;
+	cout << " 8. 마스터피스 레드" << endl;
+	cout << " 9. 마스터피스 블랙" << endl;
+	cout << " 10. 종료" << endl;
 	cout << "===============================================" << endl;
 	cout << ">> ";
 }
@@ -204,6 +206,7 @@ void GoldApple() {
 	for (int i = 0; i < result.size(); i++) {
 		if (result[i] != 0) {
 			cout << name[i] << " : " << result[i] << endl;
+			//cout << result[i] << endl;
 		}
 	}
 
@@ -249,6 +252,7 @@ void RoyalStyle() {
 	for (int i = 0; i < result.size(); i++) {
 		if (result[i] != 0) {
 			cout << name[i] << " : " << result[i] << endl;
+			//cout << result[i] << endl;
 		}
 	}
 
@@ -279,7 +283,7 @@ void RoyalHairCoupon() {
 
 	cout << "시행할 횟수 : ";
 	cin >> n;
-	cout << "남성(1)/여성(2)";
+	cout << "남성(1)/여성(2) : ";
 	cin >> m;
 
 	REPLAY:
@@ -352,7 +356,7 @@ void RoyalFaceCoupon() {
 
 	cout << "시행할 횟수 : ";
 	cin >> n;
-	cout << "남성(1)/여성(2)";
+	cout << "남성(1)/여성(2) : ";
 	cin >> m;
 
 	REPLAY:
@@ -411,6 +415,360 @@ void RoyalFaceCoupon() {
 	}
 }
 
+void MasterPieceRed() {
+	int random = 0, n = 0, m = 0, res = 0;
+	string any;
+
+	string hat[13] = { "노블 카멜리아(남자만 획득가능) / 스윗 카멜리아(여자만 획득가능)", "코튼 라벤더", "소원 배달원 모자", "멋진 토끼귀", "벚꽃 캔디캡", "유리별 총총(남자만 획득가능) / 새벽별 총총(여자만 획득가능)", "예스 캡틴", "꽃나비", "아기곰 페도라", "샤이닝 문라이트(남자만 획득가능) / 글루미 문라이트(여자만 획득가능)", "하늘 멀리(남자만 획득가능) / 하늘 높이(여자만 획득가능)", "미혹의 파편", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double hatDecimal[13] = { 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 11.85, 3.39 }; // 10005
+
+	string cloth[13] = { "로드 카멜리아(남) / 레이디 카멜리아(여)", "라벤더 케이프(남) / 라벤더 케이프(여)", "소원 배달원 유니폼(남) / 소원 배달원 유니폼(여)", "사나운 토끼 한벌옷", "벚꽃 우비", "별의 기록자(남) / 별의 기록자(여)", "바다 맑음(남) / 하늘 맑음(여)", "하늘 속삭임(남) / 살랑 꽃망울(여)", "밤산책 한벌옷(남) / 밤산책 한벌옷(여)", "르 루나(남) / 라 루나(여)", "음악대 유니폼(남) / 음악대 유니폼(여)", "그림자 영주(남) / 그림자 성주(여)", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double clothDecimal[13] = { 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 13.68, 3.32 }; // 10005
+
+	string cape_glove[13] = { "타고난 품격", "라벤더 멜로디", "신속 쁘띠 윙", "사나운 악마 날개", "꽃비", "기억의 매듭", "써니 오션", "꽃구름 선율", "수호 날개", "스파클링 밀키웨이", "음악대 친구들", "운명의 굴레", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double cape_gloveDecimal[13] = { 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 12.61, 3.36 }; // 10001
+	
+	string shoes[13] = { "카멜리아 로퍼(남) / 카멜리아 구두(여)", "라벤더 슈즈", "신속 배달 구두(남) / 신속 배달 구두(여)", "사나운 토끼 구두", "벚꽃 장화", "흰양말 별구두(남) / 니삭스 별구두(여)", "바다를 항해(남) / 파도와 함께(여)", "나비선", "아장아장", "샤이닝 문워크", "경쾌한 행진", "새벽 전진(남) / 새벽 출진(여)", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double shoesDecimal[13] = { 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 12.23, 3.38 }; // 9998
+
+	string weapon[13] = { "카멜리아 티타임", "수정 지휘봉", "소원가득 크로스백", "불맛 삼지창", "벚꽃 우산", "별의 기록서", "언제나 바다", "하늘 꽃나비", "아기곰 밤산책", "문라이트 램프", "음악대 지휘봉", "여명의 빛", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double weaponDecimal[13] = { 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 11.73, 4.47 }; // 10002
+
+	for (int i = 0; i < 13; i++) {
+		res += (hatDecimal[i] * 100);
+		hatDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (clothDecimal[i] * 100);
+		clothDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (cape_gloveDecimal[i] * 100);
+		cape_gloveDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (shoesDecimal[i] * 100);
+		shoesDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (weaponDecimal[i] * 100);
+		weaponDecimal[i] = res;
+	}
+
+	vector<int> result(13, 0);
+
+	cout << "시행할 횟수 : ";
+	cin >> n;
+	cout << "모자(1)/옷(2)/망토,장갑(3)/신발(4)/무기(5) : ";
+	cin >> m;
+
+REPLAY:
+
+	if (m == 1) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10005);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (hatDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << hat[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else if (m == 2) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10005);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (clothDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << cloth[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else if (m == 3) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10001);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (cape_gloveDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << cape_glove[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else if (m == 4) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 9998);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (shoesDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << shoes[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10002);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (weaponDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << weapon[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+
+	cout << endl;
+
+	cout << endl << "다시 진행(1)/나가기(2) >> " << flush;
+	cin >> any;
+
+	if (atoi(any.c_str()) == 1) {
+		result.clear();
+		result.assign(13, 0);
+		goto REPLAY;
+	}
+	else {
+		system("cls");
+	}
+}
+
+void MasterPieceBlack() {
+	int random = 0, n = 0, m = 0, res = 0;
+	string any;
+
+	string hat[13] = { "노블 카멜리아(남자만 획득가능) / 스윗 카멜리아(여자만 획득가능)", "코튼 라벤더", "소원 배달원 모자", "멋진 토끼귀", "벚꽃 캔디캡", "유리별 총총(남자만 획득가능) / 새벽별 총총(여자만 획득가능)", "예스 캡틴", "꽃나비", "아기곰 페도라", "샤이닝 문라이트(남자만 획득가능) / 글루미 문라이트(여자만 획득가능)", "하늘 멀리(남자만 획득가능) / 하늘 높이(여자만 획득가능)", "미혹의 파편", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double hatDecimal[13] = { 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 7.71, 11.85, 3.39 }; // 10005
+
+	string cloth[13] = { "로드 카멜리아(남) / 레이디 카멜리아(여)", "라벤더 케이프(남) / 라벤더 케이프(여)", "소원 배달원 유니폼(남) / 소원 배달원 유니폼(여)", "사나운 토끼 한벌옷", "벚꽃 우비", "별의 기록자(남) / 별의 기록자(여)", "바다 맑음(남) / 하늘 맑음(여)", "하늘 속삭임(남) / 살랑 꽃망울(여)", "밤산책 한벌옷(남) / 밤산책 한벌옷(여)", "르 루나(남) / 라 루나(여)", "음악대 유니폼(남) / 음악대 유니폼(여)", "그림자 영주(남) / 그림자 성주(여)", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double clothDecimal[13] = { 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 7.55, 13.68, 3.32 }; // 10005
+
+	string cape_glove[13] = { "타고난 품격", "라벤더 멜로디", "신속 쁘띠 윙", "사나운 악마 날개", "꽃비", "기억의 매듭", "써니 오션", "꽃구름 선율", "수호 날개", "스파클링 밀키웨이", "음악대 친구들", "운명의 굴레", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double cape_gloveDecimal[13] = { 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 7.64, 12.61, 3.36 }; // 10001
+
+	string shoes[13] = { "카멜리아 로퍼(남) / 카멜리아 구두(여)", "라벤더 슈즈", "신속 배달 구두(남) / 신속 배달 구두(여)", "사나운 토끼 구두", "벚꽃 장화", "흰양말 별구두(남) / 니삭스 별구두(여)", "바다를 항해(남) / 파도와 함께(여)", "나비선", "아장아장", "샤이닝 문워크", "경쾌한 행진", "새벽 전진(남) / 새벽 출진(여)", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double shoesDecimal[13] = { 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 7.67, 12.23, 3.38 }; // 9998
+
+	string weapon[13] = { "카멜리아 티타임", "수정 지휘봉", "소원가득 크로스백", "불맛 삼지창", "벚꽃 우산", "별의 기록서", "언제나 바다", "하늘 꽃나비", "아기곰 밤산책", "문라이트 램프", "음악대 지휘봉", "여명의 빛", "무결 헤어쿠폰(남) 선택권 / 수려 헤어쿠폰(여) 선택권" };
+	double weaponDecimal[13] = { 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 7.62, 11.73, 4.47 }; // 10002
+
+	for (int i = 0; i < 13; i++) {
+		res += (hatDecimal[i] * 100);
+		hatDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (clothDecimal[i] * 100);
+		clothDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (cape_gloveDecimal[i] * 100);
+		cape_gloveDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (shoesDecimal[i] * 100);
+		shoesDecimal[i] = res;
+	}
+
+	res = 0;
+
+	for (int i = 0; i < 13; i++) {
+		res += (weaponDecimal[i] * 100);
+		weaponDecimal[i] = res;
+	}
+
+	vector<int> result(13, 0);
+
+	cout << "시행할 횟수 : ";
+	cin >> n;
+	cout << "모자(1)/옷(2)/망토,장갑(3)/신발(4)/무기(5) : ";
+	cin >> m;
+
+REPLAY:
+
+	if (m == 1) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10005);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (hatDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << hat[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else if (m == 2) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10005);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (clothDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << cloth[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else if (m == 3) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10001);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (cape_gloveDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << cape_glove[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else if (m == 4) {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 9998);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (shoesDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << shoes[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < n; i++) {
+			random = getRandomNumber(1, 10002);
+
+			for (int i = 0; i < result.size(); i++) {
+				if (weaponDecimal[i] >= random) {
+					result[i]++;
+					break;
+				}
+			}
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < result.size(); i++) {
+			if (result[i] != 0) {
+				cout << weapon[i] << " : " << result[i] << endl;
+			}
+		}
+	}
+
+	cout << endl;
+
+	cout << endl << "다시 진행(1)/나가기(2) >> " << flush;
+	cin >> any;
+
+	if (atoi(any.c_str()) == 1) {
+		result.clear();
+		result.assign(13, 0);
+		goto REPLAY;
+	}
+	else {
+		system("cls");
+	}
+}
+
 int main() {
 	ios::sync_with_stdio(false);
 
@@ -445,6 +803,12 @@ int main() {
 				break;
 
 			case(MenuList::ROYALFACE): RoyalFaceCoupon();
+				break;
+
+			case(MenuList::MASTERPIECERED): MasterPieceRed();
+				break;
+
+			case(MenuList::MASTERPIECEBLACK): MasterPieceBlack();
 				break;
 
 			default: cout << "알맞지 않은 입력" << endl;
